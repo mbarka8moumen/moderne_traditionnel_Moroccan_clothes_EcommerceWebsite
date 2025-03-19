@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-container input {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-container button {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-container button:hover {
+    background-color: #555;
+}
+
+.content {
+    overflow-x: auto; 
+    margin-bottom: 20px;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+}
+
+table th,
+table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+table th {
+    background-color: #444;
+    color: #fff;
+}
+
+table td .status {
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+table td .status.active {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+table td .status.inactive {
+    background-color: #f44336;
+    color: #fff;
+}
+
+table td button {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: background-color 0.3s;
+}
+
+table td button:hover {
+    background-color: #555;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #f4f4f4;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal h2 {
+    margin-top: 0;
+}
+
+.modal form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.modal form input,
+.modal form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal form button {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.modal form button:hover {
+    background-color: #555;
+}
+
+.modal .modal-content p {
+    margin: 20px 0;
+}
+
+#confirmDeleteBtn,
+#cancelDeleteBtn {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 5px;
+}
+
+#confirmDeleteBtn:hover,
+#cancelDeleteBtn:hover {
+    background-color: #555;
+}
+
+#addUserBtn {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
+
+#addUserBtn:hover {
+    background-color: #45a049;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    
+    .table-container {
+        overflow-x: auto;
+    }
+
+    table th,
+    table td {
+        font-size: 8px;
+        padding: 8px;
+    }
+
+    .modal-content {
+        width: 90%;
+        margin: 20% auto;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    table,
+    table thead,
+    table tbody,
+    table th,
+    table td,
+    table tr {
+        display: block;
+        width: 100%;
+    }
+
+    table thead tr {
+        display: none;
+    }
+
+    table tr {
+        margin-bottom: 15px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    table td {
+        font-size: 14px;
+        padding: 10px;
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+    }
+}
+
+</style>
+
+</head>
+<body>
+    <button class="menu-btn">&#9776;</button>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <a href="index.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="users.html"><i class="fas fa-users"></i> User Management</a>
+        <a href="products.html"><i class="fas fa-box"></i> Product Management</a>
+        <a href="orders.html"><i class="fas fa-shopping-cart"></i> Order Management</a>
+        <a href="inventory.html"><i class="fas fa-warehouse"></i> Inventory Management</a>
+        <a href="sales.html"><i class="fas fa-tags"></i> Sales and Discounts</a>
+        <a href="support.html"><i class="fas fa-headset"></i> Customer Support</a>
+        <a href="settings.html"><i class="fas fa-cogs"></i> Settings</a>
+        <a href="security.html"><i class="fas fa-shield-alt"></i> Security</a>
+        <a href="analytics.html"><i class="fas fa-chart-line"></i> Analytics and Reporting</a>
+        <a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a>
+        <a href="../index.html"><img src="../images/logo.png" alt="Logo" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 8px;">CelestiaChic</a>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <h1>User Management</h1>
+            <div class="search-container">
+                <input type="text" id="userSearch" placeholder="Search users...">
+            </div>
+            <button id="addUserBtn"><i class="fas fa-user-plus"></i> Add New User</button>
+        </div>
+        <div class="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody">
+                    <tr>
+                        <td>1</td>
+                        <td>Swaira Riaz</td>
+                        <td>swairariaz101@gmail.com</td>
+                        <td>admin</td>
+                        <td><span class="status active">Active</span></td>
+                        <td>
+                            <button class="edit-btn" data-id="1"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="delete-btn" data-id="1"><i class="fas fa-trash"></i> Delete</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>Jeon jungkook</td>
+                        <td>Jeon jungkook@gmail.com</td>
+                        <td>Customer</td>
+                        <td><span class="status active">Active</span></td>
+                        <td>
+                            <button class="edit-btn" data-id="1"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="delete-btn" data-id="1"><i class="fas fa-trash"></i> Delete</button>
+                        </td>
+                    </tr>
+                    <!-- Additional user rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal for Adding/Editing User -->
+
+        <div id="userModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modalTitle">Add New User</h2>
+                <form id="userForm">
+                    <label for="userName">Name:</label>
+                    <input type="text" id="userName" name="userName" required>
+                    <label for="userEmail">Email:</label>
+                    <input type="email" id="userEmail" name="userEmail" required>
+                    <label for="userRole">Role:</label>
+                    <select id="userRole" name="userRole">
+                        <option value="Admin">Admin</option>
+                        <option value="Customer">Customer</option>
+                        <option value="Support">Support</option>
+                    </select>
+                    <label for="userStatus">Status:</label>
+                    <select id="userStatus" name="userStatus">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                    <button type="submit" id="saveUserBtn"><i class="fas fa-save"></i> Save</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div id="confirmationModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Are you sure?</h2>
+                <p>Do you really want to delete this user? This process cannot be undone.</p>
+                <button id="confirmDeleteBtn"><i class="fas fa-check"></i> Yes, Delete</button>
+                <button id="cancelDeleteBtn"><i class="fas fa-times"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script>
+        
+        let users = [
+            { id: 1, name: 'Swaira Riaz', email: 'swairariaz101@gmail.com', role: 'admin', status: 'Active' },
+            { id:2, name: 'Jeon jungkook', email: 'JeonJungkook@gmail.com', role: 'Customer', status: 'Active' }
+        ];
+
+        // Function to render users table
+        function renderUsers() {
+            const userTableBody = document.getElementById('userTableBody');
+            userTableBody.innerHTML = '';
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.role}</td>
+                    <td><span class="status ${user.status.toLowerCase()}">${user.status}</span></td>
+                    <td>
+                        <button class="edit-btn" data-id="${user.id}"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="delete-btn" data-id="${user.id}"><i class="fas fa-trash"></i> Delete</button>
+                    </td>
+                `;
+                userTableBody.appendChild(row);
+            });
+            addEventListenersToButtons();
+        }
+
+        // Function to add user
+        function addUser(user) {
+            users.push(user);
+            renderUsers();
+        }
+
+        function editUser(updatedUser) {
+            users = users.map(user => user.id === updatedUser.id ? updatedUser : user);
+            renderUsers();
+        }
+
+        function deleteUser(userId) {
+            users = users.filter(user => user.id !== userId);
+            renderUsers();
+        }
+
+        function addEventListenersToButtons() {
+            document.querySelectorAll('.edit-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const userId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    const user = users.find(u => u.id === userId);
+                    openUserModal(user);
+                });
+            });
+
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const userId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    openConfirmationModal(userId);
+                });
+            });
+        }
+
+        // Open user modal for adding/editing
+        function openUserModal(user = null) {
+            const modal = document.getElementById('userModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const userForm = document.getElementById('userForm');
+
+            if (user) {
+                modalTitle.textContent = 'Edit User';
+                userForm.userName.value = user.name;
+                userForm.userEmail.value = user.email;
+                userForm.userRole.value = user.role;
+                userForm.userStatus.value = user.status;
+                userForm.setAttribute('data-id', user.id);
+            } else {
+                modalTitle.textContent = 'Add New User';
+                userForm.reset();
+                userForm.removeAttribute('data-id');
+            }
+
+            modal.style.display = 'block';
+        }
+
+        // Open confirmation modal
+        function openConfirmationModal(userId) {
+            const confirmationModal = document.getElementById('confirmationModal');
+            const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+
+            confirmationModal.style.display = 'block';
+
+            confirmDeleteBtn.onclick = () => {
+                deleteUser(userId);
+                confirmationModal.style.display = 'none';
+            };
+        }
+
+        // Handle form submission
+        document.getElementById('userForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userName = e.target.userName.value;
+            const userEmail = e.target.userEmail.value;
+            const userRole = e.target.userRole.value;
+            const userStatus = e.target.userStatus.value;
+            const userId = e.target.getAttribute('data-id');
+
+            if (userId) {
+                
+                editUser({
+                    id: parseInt(userId),
+                    name: userName,
+                    email: userEmail,
+                    role: userRole,
+                    status: userStatus
+                });
+            } else {
+                
+                const newUser = {
+                    id: users.length ? Math.max(...users.map(u => u.id)) + 1 : 1,
+                    name: userName,
+                    email: userEmail,
+                    role: userRole,
+                    status: userStatus
+                };
+                addUser(newUser);
+            }
+
+            document.getElementById('userModal').style.display = 'none';
+        });
+
+        document.querySelectorAll('.close').forEach(closeBtn => {
+            closeBtn.onclick = () => {
+                closeBtn.parentElement.parentElement.style.display = 'none';
+            };
+        });
+
+        document.getElementById('addUserBtn').addEventListener('click', () => {
+            openUserModal();
+        });
+
+        document.getElementById('searchBtn').addEventListener('click', () => {
+            const searchValue = document.getElementById('userSearch').value.toLowerCase();
+            users = users.filter(user => user.name.toLowerCase().includes(searchValue) || user.email.toLowerCase().includes(searchValue));
+            renderUsers();
+        });
+
+        renderUsers();
+    </script>
+</body>
+</html>

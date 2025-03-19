@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <button class="menu-btn">&#9776;</button>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <!-- Sidebar links -->
+        <a href="index.html" class="active"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+        <a href="users.html"><i class="fas fa-users"></i>User Management</a>
+        <a href="products.html"><i class="fas fa-box"></i>Product Management</a>
+        <a href="orders.html"><i class="fas fa-shopping-cart"></i>Order Management</a>
+        <a href="inventory.html"><i class="fas fa-warehouse"></i>Inventory Management</a>
+        <a href="sales.html"><i class="fas fa-tags"></i>Sales and Discounts</a>
+        <a href="support.html"><i class="fas fa-headset"></i>Customer Support</a>
+        <a href="settings.html"><i class="fas fa-cogs"></i>Settings</a>
+        <a href="security.html"><i class="fas fa-shield-alt"></i>Security</a>
+        <a href="analytics.html"><i class="fas fa-chart-line"></i>Analytics and Reporting</a>
+        <a href="notifications.html"><i class="fas fa-bell"></i>Notifications</a>
+        <a href="../index.html"><img src="../images/logo.png" alt="Logo" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 8px;">CelestiaChic</a>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <h1>Settings</h1>
+        </div>
+        <div class="content">
+            <!-- Site Information -->
+            <form id="settings-form" class="settings-form">
+                <h2>Site Information</h2>
+                
+                <div class="form-group">
+                    <label for="site-name">Site Name</label>
+                    <input type="text" id="site-name" name="site-name" placeholder="Enter site name">
+                </div>
+                <div class="form-group">
+                    <label for="site-tagline">Site Tagline</label>
+                    <input type="text" id="site-tagline" name="site-tagline" placeholder="Enter site tagline">
+                </div>
+                <div class="form-group">
+                    <label for="site-description">Site Description</label>
+                    <textarea id="site-description" name="site-description" placeholder="Enter site description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="site-logo">Site Logo URL</label>
+                    <input type="text" id="site-logo" name="site-logo" placeholder="Enter site logo URL">
+                </div>
+                <div class="form-group">
+                    <label for="favicon">Favicon URL</label>
+                    <input type="text" id="favicon" name="favicon" placeholder="Enter favicon URL">
+                    <button type="submit">Save Changes</button>
+                </div>
+                
+                <!-- General Settings -->
+                <h2>General Settings</h2>
+                <div class="form-group">
+                    <label for="contact-email">Contact Email</label>
+                    <input type="email" id="contact-email" name="contact-email" placeholder="Enter contact email">
+                </div>
+                <div class="form-group">
+                    <label for="contact-phone">Contact Phone</label>
+                    <input type="text" id="contact-phone" name="contact-phone" placeholder="Enter contact phone number">
+                </div>
+                <div class="form-group">
+                    <label for="currency">Currency</label>
+                    <select id="currency" name="currency">
+                        <option value="usd">USD</option>
+                        <option value="eur">EUR</option>
+                        <option value="gbp">GBP</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <select id="country" name="country">
+                        <option value="us">pakistan</option>
+                        <option value="uk">South korea</option>
+                        <option value="ca">United States</option>
+                    </select>
+                    <button type="submit">Save Changes</button>
+                </div>
+                
+                <!-- Store Settings -->
+
+                <h2>Store Settings</h2>
+                <div class="form-group">
+                    <label for="payment-gateway">Payment Gateway API Key</label>
+                    <input type="text" id="payment-gateway" name="payment-gateway" placeholder="Enter payment gateway API key">
+                </div>
+                <div class="form-group">
+                    <label for="shipping-options">Shipping Options</label>
+                    <textarea id="shipping-options" name="shipping-options" placeholder="Enter shipping options"></textarea>
+                    <label for="shipping-options-type">Shipping Options Type</label>
+                    <select id="shipping-options-type" name="shipping-options-type">
+                        <option value="standard">Standard</option>
+                        <option value="express">Express</option>
+                        <option value="overnight">Overnight</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tax-settings">Tax Settings</label>
+                    <textarea id="tax-settings" name="tax-settings" placeholder="Enter tax settings"></textarea>
+                    <label for="tax-settings-type">Tax Settings Type</label>
+                    <select id="tax-settings-type" name="tax-settings-type">
+                        <option value="vat">VAT</option>
+                        <option value="gst">GST</option>
+                        <option value="sales-tax">Sales Tax</option>
+                    </select>
+                    <button type="submit">Save Changes</button>
+                </div>
+
+                <!-- User Management -->
+
+<h2>User Management</h2>
+
+<div class="form-group">
+    <label for="user-roles">User Roles</label>
+    <textarea id="user-roles" name="user-roles" placeholder="Enter user roles and permissions"></textarea>
+    <label for="user-roles-type">Select User Role Type</label>
+    <select id="user-roles-type" name="user-roles-type">
+        <option value="admin">Admin</option>
+        <option value="editor">Editor</option>
+        <option value="viewer">Viewer</option>
+        <option value="manager">Manager</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="user-account">Update User Account</label>
+    <textarea id="user-account" name="user-account" placeholder="Update user account details and passwords"></textarea>
+    <label for="update-account-type">Update Account Type</label>
+    <select id="update-account-type" name="update-account-type">
+        <option value="password">Password</option>
+        <option value="email">Email</option>
+        <option value="details">Personal Details</option>
+        <option value="all">All</option>
+    </select>
+    <button type="submit">Save Changes</button>
+</div>
+
+                <!-- Email Notifications -->
+
+                <h2>Email Notifications</h2>
+                <div class="form-group">
+                    <label for="email-templates">Email Templates</label>
+                    <textarea id="email-templates" name="email-templates" placeholder="Configure email templates"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="smtp-server">SMTP Server</label>
+                    <input type="text" id="smtp-server" name="smtp-server" placeholder="Enter SMTP server address">
+                </div>
+                <div class="form-group">
+                    <label for="smtp-email">Sender Email</label>
+                    <input type="email" id="smtp-email" name="smtp-email" placeholder="Enter sender email">
+                    <button type="submit">Save Changes</button>
+                </div>
+
+                <!-- Security Settings -->
+
+                <h2>Security Settings</h2>
+                <div class="form-group">
+                    <label for="two-factor">Two-Factor Authentication</label>
+                    <input type="checkbox" id="two-factor" name="two-factor">
+                </div>
+                <div class="form-group">
+                    <label for="password-policies">Password Policies</label>
+                    <textarea id="password-policies" name="password-policies" placeholder="Enter password policies"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="ip-whitelist">IP Whitelist</label>
+                    <textarea id="ip-whitelist" name="ip-whitelist" placeholder="Enter IP whitelist"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="ip-blacklist">IP Blacklist</label>
+                    <textarea id="ip-blacklist" name="ip-blacklist" placeholder="Enter IP blacklist"></textarea>
+                    <button type="submit">Save Changes</button>
+                </div>
+
+                <!-- Theme and Appearance -->
+
+<h2>Theme and Appearance</h2>
+<div class="form-group">
+    <label for="theme-color">Theme Color</label>
+    <input type="color" id="theme-color" name="theme-color" value="#000000">
+</div>
+
+<div class="form-group">
+    <label for="theme-font">Font Style</label>
+    <select id="theme-font" name="theme-font">
+        <option value="sans-serif">Sans-serif</option>
+        <option value="serif">Serif</option>
+        <option value="monospace">Monospace</option>
+        <option value="cursive">Cursive</option>
+        <option value="fantasy">Fantasy</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="theme-background">Background Image</label>
+    <input type="file" id="theme-background" name="theme-background" accept="image/*">
+</div>
+
+<!-- Homepage Layout -->
+
+<div class="form-group">
+    <label for="homepage-layout">Homepage Layout</label>
+    <textarea id="homepage-layout" name="homepage-layout" placeholder="Manage homepage layout and widgets"></textarea>
+</div>
+
+<div class="form-group">
+    <label for="homepage-widgets">Available Widgets</label>
+    <select id="homepage-widgets" name="homepage-widgets" multiple>
+        <option value="slider">Image Slider</option>
+        <option value="news">News Ticker</option>
+        <option value="featured">Featured Products</option>
+        <option value="testimonials">Testimonials</option>
+        <option value="contact-form">Contact Form</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="layout-options">Layout Options</label>
+    <select id="layout-options" name="layout-options">
+        <option value="boxed">Boxed Layout</option>
+        <option value="full-width">Full Width</option>
+        <option value="fixed-width">Fixed Width</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="header-style">Header Style</label>
+    <select id="header-style" name="header-style">
+        <option value="standard">Standard</option>
+        <option value="sticky">Sticky</option>
+        <option value="transparent">Transparent</option>
+        <option value="minimal">Minimal</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="footer-style">Footer Style</label>
+    <select id="footer-style" name="footer-style">
+        <option value="standard">Standard</option>
+        <option value="fixed">Fixed</option>
+        <option value="hidden">Hidden</option>
+        <option value="minimal">Minimal</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="custom-css">Custom CSS</label>
+    <textarea id="custom-css" name="custom-css" placeholder="Add custom CSS for advanced styling"></textarea>
+</div>
+
+<div class="form-group">
+    <label for="custom-js">Custom JavaScript</label>
+    <textarea id="custom-js" name="custom-js" placeholder="Add custom JavaScript for advanced functionality"></textarea>
+    <button type="submit">Save Changes</button>
+</div>
+
+
+                <!-- Backup and Restore -->
+
+                <h2>Backup and Restore</h2>
+                <div class="form-group">
+                    <button type="button" id="backup-btn">Create Backup</button>
+                    <button type="button" id="restore-btn">Restore Backup</button>
+                </div>
+
+                <!-- Integration Settings -->
+
+                <h2>Integration Settings</h2>
+                <div class="form-group">
+                    <label for="third-party-services">Third-Party Services</label>
+                    <textarea id="third-party-services" name="third-party-services" placeholder="Configure third-party services"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="api-keys">API Keys</label>
+                    <textarea id="api-keys" name="api-keys" placeholder="Manage API keys"></textarea>
+                    <button type="submit">Save Changes</button>
+                </div>
+
+                <!-- Performance Settings -->
+
+<h2>Performance Settings</h2>
+<div class="form-group">
+    <label for="caching-strategy">Caching Strategy</label>
+    <select id="caching-strategy" name="caching-strategy">
+        <option value="none">None</option>
+        <option value="memory">Memory Cache</option>
+        <option value="file">File Cache</option>
+        <option value="redis">Redis Cache</option>
+        <option value="memcached">Memcached</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="cache-duration">Cache Duration</label>
+    <input type="number" id="cache-duration" name="cache-duration" placeholder="Cache duration in minutes">
+    <small>Specify the duration for which cache data should be stored before expiration.</small>
+</div>
+
+<div class="form-group">
+    <label for="cache-clear">Cache Clearing</label>
+    <select id="cache-clear" name="cache-clear">
+        <option value="manual">Manual</option>
+        <option value="automatic">Automatic</option>
+    </select>
+    <small>Choose whether cache should be cleared manually or automatically based on specific conditions.</small>
+</div>
+
+
+<div class="form-group">
+    <label for="performance-metrics">Performance Metrics</label>
+    <textarea id="performance-metrics" name="performance-metrics" placeholder="Define performance metrics and thresholds"></textarea>
+    <small>Specify metrics to monitor, such as response time, throughput, and error rates. Define acceptable thresholds.</small>
+</div>
+
+
+<div class="form-group">
+    <label for="optimization-techniques">Optimization Techniques</label>
+    <textarea id="optimization-techniques" name="optimization-techniques" placeholder="List optimization techniques"></textarea>
+    <small>List various techniques to optimize application performance, such as minification, compression, and lazy loading.</small>
+</div>
+
+<div class="form-group">
+    <label for="load-balancing">Load Balancing</label>
+    <select id="load-balancing" name="load-balancing">
+        <option value="none">None</option>
+        <option value="round-robin">Round Robin</option>
+        <option value="least-connections">Least Connections</option>
+        <option value="ip-hash">IP Hash</option>
+    </select>
+    <small>Select the load balancing strategy to distribute incoming requests efficiently across servers.</small>
+</div>
+
+<div class="form-group">
+    <label for="performance-reports">Performance Reports</label>
+    <input type="file" id="performance-reports" name="performance-reports">
+    <small>Upload performance reports or logs to review and analyze system performance.</small>
+</div>
+<div class="form-group">
+    <label for="compression-settings">Compression Settings</label>
+    <select id="compression-settings" name="compression-settings">
+        <option value="gzip">GZIP</option>
+        <option value="brotli">Brotli</option>
+        <option value="none">None</option>
+    </select>
+    <small>Choose the compression method for reducing data size and improving load times.</small>
+</div>
+
+<div class="form-group">
+    <label for="database-optimization">Database Optimization</label>
+    <textarea id="database-optimization" name="database-optimization" placeholder="Specify database optimization techniques"></textarea>
+    <small>Define techniques to optimize database performance, such as indexing, query optimization, and data archiving.</small>
+</div>
+
+<div class="form-group">
+    <label for="server-tuning">Server Tuning</label>
+    <textarea id="server-tuning" name="server-tuning" placeholder="Configure server tuning parameters"></textarea>
+    <small>Configure server parameters for better performance, such as max connections, timeouts, and resource limits.</small>
+    <button type="submit">Save Changes</button>
+</div>
+
+<!-- Legal and Compliance -->
+
+<h2>Legal and Compliance</h2>
+
+<div class="form-group">
+    <label for="privacy-policy">Privacy Policy</label>
+    <select id="privacy-policy-option" name="privacy-policy-option" onchange="toggleDescription('privacy-policy')">
+        <option value="remain">Remain Same</option>
+        <option value="change">Change</option>
+    </select>
+    <textarea id="privacy-policy" name="privacy-policy" placeholder="Manage privacy policy" style="display: none;"></textarea>
+</div>
+
+<div class="form-group">
+    <label for="terms-of-service">Terms of Service</label>
+    <select id="terms-of-service-option" name="terms-of-service-option" onchange="toggleDescription('terms-of-service')">
+        <option value="remain">Remain Same</option>
+        <option value="change">Change</option>
+    </select>
+    <textarea id="terms-of-service" name="terms-of-service" placeholder="Manage terms of service" style="display: none;"></textarea>
+</div>
+
+<div class="form-group">
+    <label for="refund-policies">Refund Policies</label>
+    <select id="refund-policies-option" name="refund-policies-option" onchange="toggleDescription('refund-policies')">
+        <option value="remain">Remain Same</option>
+        <option value="change">Change</option>
+    </select>
+    <textarea id="refund-policies" name="refund-policies" placeholder="Manage refund policies" style="display: none;"></textarea>
+</div>
+
+<div class="form-group">
+    <label for="cookie-consent">Cookie Consent</label>
+    <select id="cookie-consent-option" name="cookie-consent-option" onchange="toggleDescription('cookie-consent')">
+        <option value="remain">Remain Same</option>
+        <option value="change">Change</option>
+    </select>
+    <textarea id="cookie-consent" name="cookie-consent" placeholder="Configure cookie consent" style="display: none;"></textarea>
+</div>
+
+<div class="form-group">
+    <label for="data-protection">Data Protection</label>
+    <select id="data-protection-option" name="data-protection-option" onchange="toggleDescription('data-protection')">
+        <option value="remain">Remain Same</option>
+        <option value="change">Change</option>
+    </select>
+    <textarea id="data-protection" name="data-protection" placeholder="Manage data protection settings" style="display: none;"></textarea>
+    <button type="submit">Save Changes</button>
+</div>
+
+<!-- Language and Localization -->
+
+<h2>Language and Localization</h2>
+<div class="form-group">
+    <label for="language">Site Language</label>
+    <select id="language" name="language">
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+    </select>
+</div>
+<div class="form-group">
+    <label for="regional-settings">Regional Settings</label>
+    <textarea id="regional-settings" name="regional-settings" placeholder="Set up regional settings"></textarea>
+    <button type="submit">Save Changes</button>
+</div>
+
+<!-- Cart Container Settings -->
+
+<form id="cart-settings-form" class="settings-form">
+    <h2>Cart Settings</h2>
+    
+    <div class="form-group">
+        <label for="cart-display-type">Display Type</label>
+        <select id="cart-display-type" name="cart-display-type">
+            <option value="grid">Grid</option>
+            <option value="list">List</option>
+        </select>
+        <button type="submit">Save Changes</button>
+    </div>
+    
+    <!-- Cart Items Settings -->
+
+    <h2>Cart Items Settings</h2>
+    <div class="form-group">
+        <label for="cart-item-image-size">Item Image Size</label>
+        <input type="text" id="cart-item-image-size" name="cart-item-image-size" placeholder="Enter image size (e.g., 100x100)">
+    </div>
+    <div class="form-group">
+        <label for="cart-item-layout">Item Layout</label>
+        <select id="cart-item-layout" name="cart-item-layout">
+            <option value="compact">Compact</option>
+            <option value="detailed">Detailed</option>
+        </select>
+        <button type="submit">Save Changes</button>
+    </div>
+
+    <!-- Checkout and Billing Settings -->
+
+    <h2>Checkout and Billing Settings</h2>
+    <div class="form-group">
+        <label for="enable-checkout">Enable Checkout</label>
+        <input type="checkbox" id="enable-checkout" name="enable-checkout">
+    </div>
+    <div class="form-group">
+        <label for="payment-gateway">Payment Gateway</label>
+        <select id="payment-gateway" name="payment-gateway">
+            <option value="paypal">PayPal</option>
+            <option value="stripe">Stripe</option>
+            <option value="authorize">Authorize.net</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="billing-address-required">Billing Address Required</label>
+        <input type="checkbox" id="billing-address-required" name="billing-address-required">
+    </div>
+    <div class="form-group">
+        <label for="tax-inclusive">Tax Inclusive Pricing</label>
+        <input type="checkbox" id="tax-inclusive" name="tax-inclusive">
+    </div>
+</form>
+<button type="submit">Save Changes</button>
+</div>
+
+<!-- User Management -->
+
+<h2>User Management</h2>
+
+<div class="form-group">
+    <label for="user-roles">User Roles</label>
+    <textarea id="user-roles" name="user-roles" placeholder="Enter user roles and permissions"></textarea>
+    <label for="user-roles-type">Select User Role Type</label>
+    <select id="user-roles-type" name="user-roles-type">
+        <option value="admin">Admin</option>
+        <option value="editor">Editor</option>
+        <option value="viewer">Viewer</option>
+        <option value="manager">Manager</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="user-account">Update User Account</label>
+    <textarea id="user-account" name="user-account" placeholder="Update user account details and passwords"></textarea>
+    <label for="update-account-type">Update Account Type</label>
+    <select id="update-account-type" name="update-account-type">
+        <option value="password">Password</option>
+        <option value="email">Email</option>
+        <option value="details">Personal Details</option>
+        <option value="all">All</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="user-status">User Status</label>
+    <select id="user-status" name="user-status">
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+        <option value="suspended">Suspended</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="user-notifications">Notification Preferences</label>
+    <input type="checkbox" id="email-notifications" name="notifications" value="email">
+    <label for="email-notifications">Email Notifications</label>
+    <input type="checkbox" id="sms-notifications" name="notifications" value="sms">
+    <label for="sms-notifications">SMS Notifications</label>
+</div>
+
+<div class="form-group">
+    <label for="activity-log">Recent Activities</label>
+    <textarea id="activity-log" name="activity-log" placeholder="View recent changes and activities"></textarea>
+    <button type="submit">Save Changes</button>
+</div>
+
+<!-- System Health -->
+ 
+<h2>System Health</h2>
+                <div class="form-group">
+                    <label for="system-status">System Status</label>
+                    <textarea id="system-status" name="system-status" placeholder="Enter system status information"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="error-logs">Error Logs</label>
+                    <textarea id="error-logs" name="error-logs" placeholder="Enter error logs"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="performance-metrics">Performance Metrics</label>
+                    <textarea id="performance-metrics" name="performance-metrics" placeholder="Enter performance metrics"></textarea>
+                    <button type="submit">Save Changes</button>
+                </div>
+</div>
+<script src="js/admin.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const settingsForm = document.getElementById('settings-form');
+    settingsForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(settingsForm);
+        fetch('api/save-settings', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Settings saved successfully!');
+            } else {
+                alert('Failed to save settings.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while saving settings.');
+        });
+    });
+
+    document.getElementById('backup-btn').addEventListener('click', () => {
+        fetch('api/create-backup', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Backup created successfully!');
+                } else {
+                    alert('Failed to create backup.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while creating backup.');
+            });
+    });
+
+    document.getElementById('restore-btn').addEventListener('click', () => {
+        fetch('api/restore-backup', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Backup restored successfully!');
+                } else {
+                    alert('Failed to restore backup.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while restoring backup.');
+            });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const cartSettingsForm = document.getElementById('cart-settings-form');
+
+    cartSettingsForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(cartSettingsForm);
+
+        fetch('api/save-cart-settings', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Cart settings saved successfully!');
+            } else {
+                alert('Failed to save cart settings.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while saving cart settings.');
+        });
+    });
+});
+
+function toggleDescription(setting) {
+    const selectElement = document.getElementById(`${setting}-option`);
+    const textareaElement = document.getElementById(setting);
+
+    if (selectElement.value === 'change') {
+        textareaElement.style.display = 'block';
+    } else {
+        textareaElement.style.display = 'none';
+    }
+}
+
+</script>
+
+</body>
+</html>

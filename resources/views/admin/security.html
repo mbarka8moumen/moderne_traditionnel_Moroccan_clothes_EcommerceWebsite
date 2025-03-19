@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.4/chartist.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+
+    <style>
+        .security-settings .setting {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.security-settings .setting h3 {
+    margin-bottom: 10px;
+}
+
+.btn {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #3498db;
+}
+
+.btn-secondary {
+    background-color: #7f8c8d;
+}
+
+.btn-success {
+    background-color: #2ecc71;
+}
+
+.btn-warning {
+    background-color: #f39c12;
+}
+
+.btn-info {
+    background-color: #1abc9c;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+}
+
+.btn-dark {
+    background-color: #2c3e50;
+}
+
+/* Charts Container */
+.charts {
+    margin-bottom: 20px;
+}
+
+.chart-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.ct-chart {
+    width: 100%;
+    height: 300px;
+}
+
+/* Alerts Styles */
+.alerts {
+    margin-bottom: 20px;
+}
+
+#alerts-list {
+    list-style: none;
+}
+
+#alerts-list li {
+    background-color: #ce3636;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    position: relative;
+}
+
+.modal-content .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input, form select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    background-color: #ecf0f1;
+    padding: 10px;
+    text-align: left;
+}
+
+tbody td {
+    background-color: #ffffff;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+
+
+    </style>
+</head>
+
+<body>
+    <button class="menu-btn">&#9776;</button>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <a href="index.html" class="active"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+        <a href="users.html"><i class="fas fa-users"></i>User Management</a>
+        <a href="products.html"><i class="fas fa-box"></i>Product Management</a>
+        <a href="orders.html"><i class="fas fa-shopping-cart"></i>Order Management</a>
+        <a href="inventory.html"><i class="fas fa-warehouse"></i>Inventory Management</a>
+        <a href="sales.html"><i class="fas fa-tags"></i>Sales and Discounts</a>
+        <a href="support.html"><i class="fas fa-headset"></i>Customer Support</a>
+        <a href="settings.html"><i class="fas fa-cogs"></i>Settings</a>
+        <a href="security.html"><i class="fas fa-shield-alt"></i>Security</a>
+        <a href="analytics.html"><i class="fas fa-chart-line"></i>Analytics and Reporting</a>
+        <a href="notifications.html"><i class="fas fa-bell"></i>Notifications</a>
+        <a href="../index.html"><img src="../images/logo.png" alt="Logo" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 8px;">CelestiaChic</a>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <h1>Security</h1>
+        </div>
+        <div class="content">
+            <div class="security-settings">
+                <div class="setting">
+                    <h3>Two-Factor Authentication</h3>
+                    <button class="btn btn-primary" id="enable-2fa">Enable</button>
+                    <p id="2fa-status">Status: Not Enabled</p>
+                </div>
+                <div class="setting">
+                    <h3>Login Activity</h3>
+                    <button class="btn btn-secondary" onclick="openModal('login-activity-modal')">View Logs</button>
+                </div>
+                <div class="setting">
+                    <h3>Password Policy</h3>
+                    <button class="btn btn-success" onclick="openModal('password-policy-modal')">Update Policy</button>
+                </div>
+                <div class="setting">
+                    <h3>User Authentication and Authorization</h3>
+                    <button class="btn btn-warning" onclick="openModal('auth-modal')">Manage Auth</button>
+                </div>
+                <div class="setting">
+                    <h3>Session Management</h3>
+                    <button class="btn btn-info" onclick="openModal('session-modal')">Manage Sessions</button>
+                </div>
+                <div class="setting">
+                    <h3>Activity Monitoring and Alerts</h3>
+                    <button class="btn btn-danger" onclick="openModal('activity-modal')">View Activity</button>
+                </div>
+                <div class="setting">
+                    <h3>Data Encryption</h3>
+                    <button class="btn btn-dark" onclick="openModal('encryption-modal')">Encryption Settings</button>
+                </div>
+                <div class="setting">
+                    <h3>Firewall and IP Whitelisting</h3>
+                    <button class="btn btn-secondary" onclick="openModal('firewall-modal')">Manage Firewall</button>
+                </div>
+                <div class="setting">
+                    <h3>Security Policies</h3>
+                    <button class="btn btn-primary" onclick="openModal('policies-modal')">View Policies</button>
+                </div>
+                <div class="setting">
+                    <h3>Software Updates and Patching</h3>
+                    <button class="btn btn-success" onclick="openModal('updates-modal')">Manage Updates</button>
+                </div>
+                <div class="setting">
+                    <h3>Third-Party Integrations</h3>
+                    <button class="btn btn-warning" onclick="openModal('third-party-modal')">Manage Integrations</button>
+                </div>
+            </div>
+            <div class="charts">
+                <h2>Security Metrics</h2>
+                <div class="chart-container">
+                    <h3>Login Attempts</h3>
+                    <div id="login-attempts-chart" class="ct-chart"></div>
+                </div>
+                <div class="chart-container">
+                    <h3>Security Alerts</h3>
+                    <div id="security-alerts-chart" class="ct-chart"></div>
+                </div>
+            </div>
+            <div class="alerts">
+                <h2>Recent Alerts</h2>
+                <ul id="alerts-list">
+                    <!-- Alerts will be dynamically inserted here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="login-activity-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('login-activity-modal')">&times;</span>
+            <h2>Login Activity Logs</h2>
+            <table id="login-activity-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>User</th>
+                        <th>IP Address</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Log details will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="password-policy-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('password-policy-modal')">&times;</span>
+            <h2>Update Password Policy</h2>
+            <form id="password-policy-form">
+                <label for="min-length">Minimum Length:</label>
+                <input type="number" id="min-length" name="min-length" required>
+                <label for="require-uppercase">Require Uppercase:</label>
+                <input type="checkbox" id="require-uppercase" name="require-uppercase">
+                <label for="require-numeric">Require Numeric:</label>
+                <input type="checkbox" id="require-numeric" name="require-numeric">
+                <button type="submit" class="btn btn-success">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Authentication and Authorization Modal -->
+<div id="auth-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>User Authentication and Authorization</h2>
+        <table id="auth-table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Role</th>
+                    <th>Permissions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be populated here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+   <!-- Session Management Modal -->
+<div id="session-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Manage Sessions</h2>
+        <table id="session-table">
+            <thead>
+                <tr>
+                    <th>Session ID</th>
+                    <th>User</th>
+                    <th>Login Time</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Session data will be populated here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+    <!-- Activity Monitoring and Alerts Modal -->
+
+<div id="activity-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Activity Monitoring and Alerts</h2>
+        <table id="activity-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>User</th>
+                    <th>Action</th>
+                    <th>IP Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Sample data will be injected here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+    <!-- Encryption Settings Modal -->
+     
+<div id="encryption-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Encryption Settings</h2>
+        <form id="encryption-settings-form">
+            <label for="encryption-method">Encryption Method:</label>
+            <select id="encryption-method" name="encryption-method">
+                <option value="AES">AES</option>
+                <option value="RSA">RSA</option>
+                <option value="Blowfish">Blowfish</option>
+            </select>
+
+            <label for="key-length">Key Length:</label>
+            <input type="number" id="key-length" name="key-length" min="128" max="4096" step="128">
+
+            <label for="encryption-status">Status:</label>
+            <input type="text" id="encryption-status" name="encryption-status" readonly>
+
+            <button type="submit" class="btn btn-primary">Save Settings</button>
+        </form>
+    </div>
+</div>
+
+
+    <!-- Firewall and IP Whitelisting Modal -->
+
+<div id="firewall-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Firewall and IP Whitelisting</h2>
+ 
+        <h3>Firewall Rules</h3>
+        <table id="firewall-rules-table">
+            <thead>
+                <tr>
+                    <th>Rule ID</th>
+                    <th>Rule Name</th>
+                    <th>Action</th>
+                    <th>Source IP</th>
+                    <th>Destination IP</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Sample Data -->
+                <tr>
+                    <td>1</td>
+                    <td>Allow SSH</td>
+                    <td>Allow</td>
+                    <td>0.0.0.0/0</td>
+                    <td>192.168.1.1</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Block HTTP</td>
+                    <td>Block</td>
+                    <td>0.0.0.0/0</td>
+                    <td>10.0.0.1</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Allow SSH</td>
+                    <td>Allow</td>
+                    <td>0.0.0.0/0</td>
+                    <td>192.168.1.1</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Block HTTP</td>
+                    <td>Block</td>
+                    <td>0.0.0.0/0</td>
+                    <td>10.0.0.1</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>Add IP to Whitelist</h3>
+        <form id="whitelist-form">
+            <label for="whitelist-ip">IP Address:</label>
+            <input type="text" id="whitelist-ip" name="whitelist-ip" placeholder="Enter IP Address">
+            <button type="submit" class="btn btn-primary">Add to Whitelist</button>
+        </form>
+
+        <!-- IP Whitelist Table -->
+        <h3>IP Whitelist</h3>
+        <table id="whitelist-table">
+            <thead>
+                <tr>
+                    <th>IP Address</th>
+                    <th>Added On</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Sample Data -->
+                <tr>
+                    <td>192.168.1.100</td>
+                    <td>2024-08-01</td>
+                </tr>
+                <tr>
+                    <td>10.0.0.200</td>
+                    <td>2024-08-02</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+    <!-- Security Policies Modal -->
+
+<div id="policies-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Security Policies</h2>
+        <div id="policies-content">
+            <!-- Policies will be loaded here -->
+        </div>
+    </div>
+</div>
+
+
+    <!-- Updates Modal -->
+<div id="updates-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Software Updates and Patching</h2>
+        <table id="updates-table">
+            <thead>
+                <tr>
+                    <th>Version</th>
+                    <th>Release Date</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+    <!-- Third-Party Integrations Modal -->
+<div id="third-party-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Manage Third-Party Integrations</h2>
+        <div id="integrations-list">
+            <!-- Sample data will be populated here -->
+        </div>
+    </div>
+</div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.4/chartist.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        
+
+        // Open and close modals
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Example: Enable Two-Factor Authentication
+        document.getElementById('enable-2fa').addEventListener('click', function () {
+            
+            alert('Two-Factor Authentication Enabled');
+            document.getElementById('2fa-status').textContent = 'Status: Enabled';
+        });
+
+        // Initialize charts
+        new Chartist.Line('#login-attempts-chart', {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+            series: [
+                [5, 9, 7, 8, 5]
+            ]
+        });
+
+        new Chartist.Bar('#security-alerts-chart', {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+            series: [
+                [2, 1, 3, 4, 1]
+            ]
+        });
+
+        // Populate alerts list
+        const alertsList = document.getElementById('alerts-list');
+        const alerts = [
+            'Suspicious login attempt detected.',
+            'Password policy updated.',
+            'New IP address whitelisted.'
+        ];
+        alerts.forEach(alert => {
+            const li = document.createElement('li');
+            li.textContent = alert;
+            alertsList.appendChild(li);
+        });
+
+        function populateLoginActivityTable() {
+    // Simulate fetching and displaying login activity logs (replace with actual data fetching)
+    const logs = [
+        { date: '2024-08-01', user: 'admin', ip: '192.168.1.1', status: 'Success' },
+        { date: '2024-08-02', user: 'user1', ip: '192.168.1.2', status: 'Failed' }
+    ];
+    const tableBody = document.querySelector('#login-activity-table tbody');
+    logs.forEach(log => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${log.date}</td>
+            <td>${log.user}</td>
+            <td>${log.ip}</td>
+            <td>${log.status}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+document.querySelector('#login-activity-modal .close').addEventListener('click', function () {
+    closeModal('login-activity-modal');
+});
+
+document.querySelector('button[onclick="openModal(\'login-activity-modal\')"]').addEventListener('click', function () {
+    populateLoginActivityTable();
+    openModal('login-activity-modal');
+});
+
+// Function to populate the authentication modal with sample data
+function populateAuthData() {
+    const authData = [
+        { user: 'admin', role: 'Administrator', permissions: 'All Access' },
+        { user: 'manager', role: 'Manager', permissions: 'Edit, View' },
+        { user: 'staff', role: 'Staff', permissions: 'View Only' },
+        { user: 'guest', role: 'Guest', permissions: 'Limited Access' },
+        { user: 'developer', role: 'Developer', permissions: 'Code, Deploy' }
+    ];
+
+    const tableBody = document.querySelector('#auth-table tbody');
+    tableBody.innerHTML = ''; 
+
+    authData.forEach(entry => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${entry.user}</td>
+            <td>${entry.role}</td>
+            <td>${entry.permissions}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+
+document.querySelector('#auth-modal .close').addEventListener('click', function () {
+    closeModal('auth-modal');
+});
+
+
+document.querySelector('button[onclick="openModal(\'auth-modal\')"]').addEventListener('click', function () {
+    populateAuthData(); 
+    openModal('auth-modal');
+});
+
+//session management 
+
+const sessions = [
+    { id: 'session1', user: 'admin', loginTime: '2024-08-01 08:00:00', status: 'Active' },
+    { id: 'session2', user: 'user1', loginTime: '2024-08-01 09:15:00', status: 'Inactive' },
+    { id: 'session3', user: 'user2', loginTime: '2024-08-01 10:30:00', status: 'Active' }
+];
+
+
+function populateSessionTable() {
+    const tableBody = document.querySelector('#session-table tbody');
+    tableBody.innerHTML = ''; 
+
+    sessions.forEach(session => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${session.id}</td>
+            <td>${session.user}</td>
+            <td>${session.loginTime}</td>
+            <td>${session.status}</td>
+            <td><button class="btn btn-danger" onclick="endSession('${session.id}')">End Session</button></td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+function endSession(sessionId) {
+    
+    alert(`Ending session ${sessionId}`);
+    
+    const index = sessions.findIndex(s => s.id === sessionId);
+    if (index > -1) {
+        sessions.splice(index, 1);
+        populateSessionTable(); 
+    }
+}
+
+function openModal(modalId) {
+    document.getElementById(modalId).style.display = 'block';
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+document.querySelector('#session-modal .close').addEventListener('click', function () {
+    closeModal('session-modal');
+});
+
+document.querySelector('button[onclick="openModal(\'session-modal\')"]').addEventListener('click', function () {
+    openModal('session-modal');
+    populateSessionTable(); 
+});
+
+
+//  activity monitoring and alert settings 
+
+function populateActivityTable() {
+    const activities = [
+        { date: '2024-08-01', user: 'admin', action: 'Login', ip: '192.168.1.1' },
+        { date: '2024-08-01', user: 'user1', action: 'Password Change', ip: '192.168.1.2' },
+        { date: '2024-08-02', user: 'user2', action: 'Failed Login Attempt', ip: '192.168.1.3' },
+        { date: '2024-08-02', user: 'admin', action: 'Logout', ip: '192.168.1.1' }
+    ];
+
+    const tableBody = document.querySelector('#activity-table tbody');
+    tableBody.innerHTML = ''; 
+
+    activities.forEach(activity => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${activity.date}</td>
+            <td>${activity.user}</td>
+            <td>${activity.action}</td>
+            <td>${activity.ip}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+document.querySelector('#activity-modal .close').addEventListener('click', function () {
+    closeModal('activity-modal');
+});
+
+document.querySelector('button[onclick="openModal(\'activity-modal\')"]').addEventListener('click', function () {
+    openModal('activity-modal');
+    populateActivityTable(); 
+});
+
+
+//  encryption settings 
+
+const sampleEncryptionSettings = {
+    method: 'AES',
+    keyLength: 256,
+    status: 'Enabled'
+};
+
+function loadEncryptionSettings() {
+    document.getElementById('encryption-method').value = sampleEncryptionSettings.method;
+    document.getElementById('key-length').value = sampleEncryptionSettings.keyLength;
+    document.getElementById('encryption-status').value = sampleEncryptionSettings.status;
+}
+
+document.querySelector('button[onclick="openModal(\'encryption-modal\')"]').addEventListener('click', function () {
+    openModal('encryption-modal');
+    loadEncryptionSettings(); 
+});
+
+document.querySelector('#encryption-modal .close').addEventListener('click', function () {
+    closeModal('encryption-modal');
+});
+
+document.getElementById('encryption-settings-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const method = document.getElementById('encryption-method').value;
+    const keyLength = document.getElementById('key-length').value;
+    const status = document.getElementById('encryption-status').value;
+
+    alert(`Encryption Settings Saved:
+           Method: ${method}
+           Key Length: ${keyLength}
+           Status: ${status}`);
+    
+    closeModal('encryption-modal');
+});
+
+// firewall and IP whitelisting settings 
+
+document.querySelector('#firewall-modal .close').addEventListener('click', function () {
+    closeModal('firewall-modal');
+});
+
+document.querySelector('button[onclick="openModal(\'firewall-modal\')"]').addEventListener('click', function () {
+    openModal('firewall-modal');
+    
+    loadFirewallData();
+});
+
+function loadFirewallData() {
+    
+    const firewallRules = [
+        { id: 1, name: 'Allow SSH', action: 'Allow', sourceIp: '0.0.0.0/0', destinationIp: '192.168.1.1' },
+        { id: 2, name: 'Block HTTP', action: 'Block', sourceIp: '0.0.0.0/0', destinationIp: '10.0.0.1' }
+    ];
+
+    const whitelistIps = [
+        { ip: '192.168.1.100', addedOn: '2024-08-01' },
+        { ip: '10.0.0.200', addedOn: '2024-08-02' }
+    ];
+
+    const firewallTableBody = document.querySelector('#firewall-rules-table tbody');
+    firewallTableBody.innerHTML = ''; 
+    firewallRules.forEach(rule => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${rule.id}</td>
+            <td>${rule.name}</td>
+            <td>${rule.action}</td>
+            <td>${rule.sourceIp}</td>
+            <td>${rule.destinationIp}</td>
+        `;
+        firewallTableBody.appendChild(row);
+    });
+
+    const whitelistTableBody = document.querySelector('#whitelist-table tbody');
+    whitelistTableBody.innerHTML = ''; 
+    whitelistIps.forEach(ip => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${ip.ip}</td>
+            <td>${ip.addedOn}</td>
+        `;
+        whitelistTableBody.appendChild(row);
+    });
+}
+
+document.getElementById('whitelist-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const ip = document.getElementById('whitelist-ip').value;
+
+    const whitelistTableBody = document.querySelector('#whitelist-table tbody');
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td>${ip}</td>
+        <td>${new Date().toISOString().split('T')[0]}</td>
+    `;
+    whitelistTableBody.appendChild(newRow);
+
+    document.getElementById('whitelist-ip').value = '';
+});
+
+
+// security policies 
+
+
+const samplePolicies = [
+    { title: 'Password Policy', description: 'Passwords must be at least 8 characters long and include a mix of letters, numbers, and special characters.' },
+    { title: 'Account Lockout Policy', description: 'Accounts will be locked after 5 unsuccessful login attempts. Locked accounts can be unlocked by an administrator.' },
+    { title: 'Data Encryption Policy', description: 'All sensitive data must be encrypted using AES-256 encryption standard both at rest and in transit.' },
+    { title: 'Network Security Policy', description: 'Firewalls must be configured to block unauthorized access. Regular network scans must be performed to identify vulnerabilities.' }
+];
+
+
+
+document.querySelector('#policies-modal .close').addEventListener('click', function () {
+    closeModal('policies-modal');
+});
+
+
+document.querySelector('button[onclick="openModal(\'policies-modal\')"]').addEventListener('click', function () {
+    openModal('policies-modal');
+    
+    const policiesContent = document.getElementById('policies-content');
+    policiesContent.innerHTML = ''; 
+
+    samplePolicies.forEach(policy => {
+        const policyElement = document.createElement('div');
+        policyElement.className = 'policy';
+        policyElement.innerHTML = `
+            <h3>${policy.title}</h3>
+            <p>${policy.description}</p>
+        `;
+        policiesContent.appendChild(policyElement);
+    });
+});
+
+
+// software updates and patching options 
+
+const sampleUpdates = [
+    {
+        version: '1.0.0',
+        releaseDate: '2024-07-01',
+        description: 'Initial release with basic features.',
+        status: 'Completed'
+    },
+    {
+        version: '1.1.0',
+        releaseDate: '2024-07-15',
+        description: 'Added support for new payment methods.',
+        status: 'Completed'
+    },
+    {
+        version: '1.2.0',
+        releaseDate: '2024-08-01',
+        description: 'Bug fixes and performance improvements.',
+        status: 'In Progress'
+    }
+];
+
+function populateUpdatesTable() {
+    const tableBody = document.querySelector('#updates-table tbody');
+    tableBody.innerHTML = ''; 
+
+    sampleUpdates.forEach(update => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${update.version}</td>
+            <td>${update.releaseDate}</td>
+            <td>${update.description}</td>
+            <td>${update.status}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+document.querySelector('#updates-modal .close').addEventListener('click', function () {
+    closeModal('updates-modal');
+});
+
+document.querySelector('button[onclick="openModal(\'updates-modal\')"]').addEventListener('click', function () {
+    openModal('updates-modal');
+    populateUpdatesTable(); 
+});
+
+// third-party integrations 
+
+function populateThirdPartyIntegrations() {
+    const integrations = [
+        { name: 'Google Analytics', status: 'Active', lastUpdated: '2024-07-30' },
+        { name: 'Mailchimp', status: 'Inactive', lastUpdated: '2024-06-15' },
+        { name: 'Stripe', status: 'Active', lastUpdated: '2024-08-01' }
+    ];
+
+    const container = document.getElementById('integrations-list');
+    container.innerHTML = ''; 
+
+    const table = document.createElement('table');
+    table.innerHTML = `
+        <thead>
+            <tr>
+                <th>Integration</th>
+                <th>Status</th>
+                <th>Last Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${integrations.map(int => `
+                <tr>
+                    <td>${int.name}</td>
+                    <td>${int.status}</td>
+                    <td>${int.lastUpdated}</td>
+                </tr>
+            `).join('')}
+        </tbody>
+    `;
+    container.appendChild(table);
+}
+
+document.querySelector('#third-party-modal .close').addEventListener('click', function () {
+    closeModal('third-party-modal');
+});
+
+document.querySelector('button[onclick="openModal(\'third-party-modal\')"]').addEventListener('click', function () {
+    populateThirdPartyIntegrations();
+    openModal('third-party-modal');
+});
+
+
+// For your convenience, please note that the provided data is just sample information. 
+// As you might be aware, my website is a project and not an official site.
+
+</script>
+</body>
+</html>
