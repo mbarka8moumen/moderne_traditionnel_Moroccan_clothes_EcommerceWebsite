@@ -13,6 +13,9 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AllController;
 use App\Http\Controllers\TraditionnelController;
 use App\Http\Controllers\ModerneController;
+// web.php
+use App\Http\Controllers\OrderTrackingController;
+
 
 Route::resource('users', UserController::class);
 
@@ -90,10 +93,7 @@ Route::get('/shop', function () {
 Route::get('/new-arrivals', function () {
     return view('newArrivals');
 })->name('newArrivals');
-Route::get('/payment', [PaymentController::class, 'showPaymentForm'])->name('payment');
-Route::post('/payment', [PaymentController::class, 'processPayment'])->name('payment');
 
-Route::get('/confirmation', [OrderController::class, 'confirmation'])->name('confirmation');
 
 
 Route::post('/checkout', [OrderController::class, 'store'])->name('checkout');
@@ -106,3 +106,32 @@ Route::get('/traditionnel', [TraditionnelController::class, 'index'])->name('tra
 Route::get('/moderne', [ModerneController::class, 'index'])->name('moderne');
 Route::view('/about', 'about')->name('about');
 Route::view('/contact', 'contact')->name(name: 'contact');
+
+
+
+// Routes pour la gestion des commandes
+Route::post('/order/store', [OrderController::class, 'store'])->name('orders.store');
+Route::get('/order/{id}', [OrderController::class, 'show'])->name('orders.show');
+Route::get('/order/confirmation/{orderId}', [OrderController::class, 'confirmation'])->name('order.confirmation');
+Route::get('/order/payment/{orderId}', [OrderController::class, 'payment'])->name('order.payment');
+Route::post('/order/update-status/{orderId}', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
+Route::get('/order/update-payment-status/{orderId}', [OrderController::class, 'updatePaymentStatus'])->name('order.updatePaymentStatus');
+
+// Route pour afficher la page de checkout
+Route::get('/checkout', [OrderController::class, 'showCheckoutForm'])->name('order.checkout');
+
+// Routes pour l'administration des commandes
+Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+Route::get('/order/edit/{id}', [OrderController::class, 'edit'])->name('orders.edit');
+Route::put('/order/update/{id}', [OrderController::class, 'update'])->name('orders.update');
+Route::delete('/order/destroy/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
+
+Route::middleware('auth')->get('/mes-commandes', [OrderController::class, 'myOrders'])->name('orders.myOrders');
+// Route pour afficher la page de succès du paiement
+Route::get('/order/{orderId}/payment-success', [OrderController::class, 'paymentSuccess'])->name('payment-success');
+
+Route::match(['get', 'post'], '/order/{orderId}/payment', [OrderController::class, 'payment'])->name('payment');
+// Route pour annuler une commande
+Route::post('/order/{orderId}/cancel', [OrderController::class, 'cancel'])->name('cancel');
+// Route pour afficher la confirmation d'annulation
+Route::get('/order/{orderId}/payment-cancel', [OrderController::class, 'paymentCancel'])->name('payment-cancel');

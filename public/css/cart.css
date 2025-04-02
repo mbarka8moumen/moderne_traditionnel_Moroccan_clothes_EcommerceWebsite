@@ -1,0 +1,156 @@
+/* Style général du panier */
+/* Définir l'arrière-plan de toute la page en blanc */
+html, body {
+    background-color: #fff !important; /* Blanc pur */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.cart {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Titre du panier */
+.heading {
+    font-size: 40px;
+    text-align: center;
+    color: #6A4E23; /* Marron clair */
+    margin-bottom: 40px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* Message lorsque le panier est vide */
+.empty-cart {
+    font-size: 22px;
+    color: #7f8c8d;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Grille des éléments du panier */
+.cart-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* Conteneur de chaque élément du panier */
+.cart-item {
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: linear-gradient(145deg, #f7f7f7, #e4d9b7); /* Dégradé de marron clair */
+}
+
+.cart-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Image des produits */
+.cart-item-image-container {
+    overflow: hidden;
+    width: 100%;
+    height: 220px;
+}
+
+.cart-item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.cart-item-image:hover {
+    transform: scale(1.1);
+}
+
+/* Détails des articles du panier */
+.cart-item-details {
+    padding: 20px;
+    text-align: left;
+}
+
+.cart-item-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4b3621; /* Marron foncé */
+    margin-bottom: 12px;
+}
+
+.cart-item-quantity,
+.cart-item-price {
+    font-size: 18px;
+    color: #7f8c8d;
+    margin-bottom: 8px;
+}
+
+.cart-item-quantity span,
+.cart-item-price span {
+    font-weight: bold;
+    color: #6A4E23; /* Marron clair */
+}
+
+/* Bouton de suppression */
+.remove-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+.remove-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Pied de page du panier */
+.cart-footer {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Bouton de passage à la commande */
+.checkout-btn {
+    background-color: #6A4E23; /* Marron clair */
+    color: white;
+    padding: 18px 36px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.checkout-btn:hover {
+    background-color: #4b3621; /* Marron foncé */
+}
+
+/* Responsive pour les petits écrans */
+@media (max-width: 768px) {
+    .cart {
+        padding: 30px 15px;
+    }
+
+    .cart-items {
+        grid-template-columns: 1fr;
+    }
+
+    .heading {
+        font-size: 32px;
+    }
+}

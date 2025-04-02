@@ -31,20 +31,23 @@
             <a href="{{ route('contact') }}">Contact</a>
 
             @auth
+            <a href="{{ route('orders.myOrders') }}">
+                <i class="fas fa-route"></i> Track My Orders
+            </a>
 
-    @if(Auth::user()->isAdmin())
-        <a href="{{ route('admin') }}">Admin</a>
-    @endif
+            @if(Auth::user()->isAdmin())
+                <a href="{{ route('admin') }}">Admin</a>
+            @endif
 
-    <form action="{{ route('logout') }}" method="POST" class="logout-form">
-        @csrf
-        <button type="submit" class="logout-btn">Logout</button>
-    </form>
-@else
-    <a href="{{ route('login') }}"><div class="fas fa-user" id="user-btn"></div></a>
-@endauth
-
-
+            <form action="{{ route('logout') }}" method="POST" class="logout-form">
+                @csrf
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+            @else
+            <a href="{{ route('login') }}">
+                <div class="fas fa-user" id="user-btn"></div>
+            </a>
+            @endauth
         </nav>
 
         <div class="icons">
@@ -122,14 +125,14 @@
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token']").getAttribute('content')
             },
             body: JSON.stringify({ email: email })
         })
         .then(response => response.json())
         .then(data => {
             Swal.fire({
-                title: "Abonnement réussi !",
+                title: "Subscription Successful!",
                 text: data.success,
                 icon: "success",
                 confirmButtonText: "OK"
@@ -138,8 +141,8 @@
         })
         .catch(error => {
             Swal.fire({
-                title: "Erreur",
-                text: "Cet email est déjà inscrit ou invalide.",
+                title: "Error",
+                text: "This email is already registered or invalid.",
                 icon: "error",
                 confirmButtonText: "OK"
             });

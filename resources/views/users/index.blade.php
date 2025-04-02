@@ -2,17 +2,17 @@
 
 @section('content')
 <div class="container">
-    <h1>Gestion des utilisateurs</h1>
-    <a href="{{ route('users.create') }}" class="btn btn-primary"><i class="fas fa-user-plus"></i> Ajouter un utilisateur</a>
+    <h1>User Management</h1>
+    <a href="{{ route('users.create') }}" class="btn btn-primary"><i class="fas fa-user-plus"></i> Add User</a>
 
     <table class="table mt-3">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nom</th>
+                <th>Name</th>
                 <th>Email</th>
-                <th>Rôle</th>
-                <th>Statut</th>
+                <th>Role</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -25,11 +25,11 @@
                 <td>{{ $user->role }}</td>
                 <td><span class="status {{ $user->status == 'Active' ? 'active' : 'inactive' }}">{{ $user->status }}</span></td>
                 <td>
-                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i> Modifier</a>
+                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i> Edit</a>
                     <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Supprimer</button>
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
                     </form>
                 </td>
             </tr>

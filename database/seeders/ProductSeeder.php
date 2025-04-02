@@ -34,7 +34,8 @@ public function run()
         'price' => 89.99,
         'description' => 'Description du produit traditionnel 1.',
         'stock' => 15,
-        'image' => 'public/images/4.jpg',
+        'image' => 'public/images/1.jfifphp artisan db:seed --class=ProductSeeder
+',
         'category_id' => $traditionnelCategory->id,
     ]);
 }

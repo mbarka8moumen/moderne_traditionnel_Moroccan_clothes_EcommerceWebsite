@@ -71,8 +71,8 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             // Supprimer l'ancienne image s'il y en a une
             if ($product->image) {
-                if (file_exists(storage_path('app/public/'.$product->image))) {
-                    unlink(storage_path('app/public/'.$product->image));
+                if (file_exists(storage_path('app/public/images/'.$product->image))) {
+                    unlink(storage_path('app/public/images/'.$product->image));
                 }
             }
             $imagePath = $request->file('image')->store('products', 'public');

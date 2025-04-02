@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Traditionnel')
+@section('title', 'Traditional')
 
 @section('content')
     <section class="shop" id="shop">
@@ -18,7 +18,7 @@
         <div class="box-container" id="product-list">
             @foreach ($products as $product)
                 <div class="box" data-id="{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ $product->price }}" data-description="{{ $product->description }}" data-stock="{{ $product->stock }}">
-                    <img src="{{ asset('images/4.jpg' . $product->image) }}" alt="Image de {{ $product->name }}">
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="Image de {{ $product->name }}">
                     <div class="content">
                         <h3>{{ $product->name }}</h3>
                         <p>{{ $product->description }}</p>
@@ -26,10 +26,8 @@
                         
                         <!-- Formulaire pour ajouter au panier -->
                         <form action="{{ route('cart.add', $product->id) }}" method="POST">
-    @csrf
-    <button type="submit" class="btn">Add to Cart</button>
-</form>
-                       
+                            @csrf
+                            <button type="submit" class="btn">Add to Cart</button>
                         </form>
 
                         <p>Stock: <span class="stock">{{ $product->stock }}</span></p>

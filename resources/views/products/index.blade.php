@@ -1,7 +1,7 @@
 @extends('admin')
 
 @section('content')
-    <h1>Liste des Produits</h1>
+    <h1>Product List</h1>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -10,9 +10,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Nom</th>
-                <th>Prix</th>
-                <th>Catégorie</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
                 <th>Stock</th>
                 <th>Image</th>
                 <th>Actions</th>
@@ -31,20 +31,20 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">Modifier</a>
-                        <button onclick="deleteProduct({{ $product->id }})" class="btn btn-danger">Supprimer</button>
+                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">Edit</a>
+                        <button onclick="deleteProduct({{ $product->id }})" class="btn btn-danger">Delete</button>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
-    <a href="{{ route('products.create') }}" class="btn btn-primary">Ajouter Produit</a>
+    <a href="{{ route('products.create') }}" class="btn btn-primary">Add Product</a>
 
     <script>
         function deleteProduct(id) {
-            if (confirm('Voulez-vous vraiment supprimer ce produit ?')) {
-                // Envoi de la requête AJAX
+            if (confirm('Do you really want to delete this product?')) {
+                // Sending the AJAX request
                 fetch(`/admin/products/${id}`, {
                     method: 'DELETE',
                     headers: {
@@ -55,16 +55,16 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Supprimer la ligne du tableau
+                        // Remove the table row
                         document.getElementById(`product-${id}`).remove();
-                        alert('Produit supprimé avec succès.');
+                        alert('Product deleted successfully.');
                     } else {
-                        alert('Une erreur est survenue.');
+                        alert('An error occurred.');
                     }
                 })
                 .catch(error => {
-                    console.error('Erreur:', error);
-                    alert('Une erreur est survenue.');
+                    console.error('Error:', error);
+                    alert('An error occurred.');
                 });
             }
         }

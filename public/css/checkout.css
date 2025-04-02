@@ -1,0 +1,149 @@
+/* Général */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Conteneur principal */
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* En-tête */
+h2 {
+    text-align: center;
+    color: #6f4f28; /* Marron */
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Résumé de commande */
+.order-summary {
+    margin-bottom: 30px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+}
+
+.order-item p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+/* Total */
+h4 {
+    font-size: 1.2rem;
+    color: #6f4f28; /* Marron */
+    margin-bottom: 20px;
+}
+
+/* Formulaire */
+form {
+    display: grid;
+    gap: 20px;
+}
+
+/* Partie 1 : Informations personnelles */
+.personal-info {
+    background-color: #f9f5f1; /* Légèrement beige pour séparer */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.personal-info .form-label {
+    font-weight: bold;
+    color: #6f4f28; /* Marron */
+    font-size: 1.1rem; /* Agrandir le libellé */
+}
+
+.personal-info .form-control {
+    padding: 15px; /* Agrandir les champs de saisie */
+    font-size: 1.2rem; /* Agrandir la police de saisie */
+    border-radius: 6px;
+    border: 1px solid #c2a79b; /* Bordure marron clair */
+    background: linear-gradient(135deg, #c2a79b, #6f4f28); /* Dégradé marron */
+    color: white;
+    width: 100%;
+}
+
+.personal-info .form-control:focus {
+    border-color: #6f4f28;
+    outline: none;
+    box-shadow: 0 0 5px rgba(111, 79, 40, 0.25);
+}
+
+/* Partie 2 : Adresse */
+.address-info {
+    background-color: #f9f5f1;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.address-info .form-label {
+    font-weight: bold;
+    color: #6f4f28;
+    font-size: 1.1rem; /* Agrandir le libellé */
+}
+
+.address-info .form-control {
+    padding: 15px; /* Agrandir les champs de saisie */
+    font-size: 1.2rem; /* Agrandir la police de saisie */
+    border-radius: 6px;
+    border: 1px solid #c2a79b;
+    background: linear-gradient(135deg, #c2a79b, #6f4f28); /* Dégradé marron */
+    color: white;
+    width: 100%;
+}
+
+.address-info .form-control:focus {
+    border-color: #6f4f28;
+    outline: none;
+    box-shadow: 0 0 5px rgba(111, 79, 40, 0.25);
+}
+
+/* Bouton */
+.btn-primary {
+    background-color: #6f4f28; /* Marron */
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.2rem; /* Agrandir le texte du bouton */
+}
+
+.btn-primary:hover {
+    background-color: #5a4021; /* Marron foncé au survol */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+}

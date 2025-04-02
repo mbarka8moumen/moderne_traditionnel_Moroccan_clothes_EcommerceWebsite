@@ -4,17 +4,20 @@
 
 @section('content')
     <section class="shop" id="shop">
-        <h1 class="heading" style="text-align: center; margin-bottom: 5px;">Our Collection</h1>
-        <div class="button-container" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 15px;">
-            <a href="{{ route('all') }}"><button class="custom-btn" style="background-color: #808080; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer;">All</button></a>
-            <a href="{{ route('traditionnel') }}"><button class="custom-btn" style="background-color: #808080; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer;">Traditional</button></a>
-            <a href="{{ route('moderne') }}"><button class="custom-btn" style="background-color: #808080; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer;margin-bottom: 20px;">Modern</button></a>
+        <h1 class="heading">Our Collection</h1>
+
+        <!-- Boutons de filtre -->
+        <div class="button-container">
+            <a href="{{ route('all') }}"><button class="custom-btn">All</button></a>
+            <a href="{{ route('traditionnel') }}"><button class="custom-btn">Traditional</button></a>
+            <a href="{{ route('moderne') }}"><button class="custom-btn">Modern</button></a>
         </div>
         
+        <!-- Affichage des produits -->
         <div class="box-container">
             @foreach ($products as $product)
                 <div class="product">
-                    <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->name }}">
+                    <img class="product-image" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                     <h3>{{ $product->name }}</h3>
                     <p>{{ $product->description }}</p>
                     <span>{{ $product->price }}$</span>
