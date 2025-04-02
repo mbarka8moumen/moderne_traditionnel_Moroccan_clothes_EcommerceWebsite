@@ -67,3 +67,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 ![image alt](https://github.com/mbarka8moumen/moderne_traditionnel_Moroccan_clothes_EcommerceWebsite/blob/50457531473dd46de65bf916debb055e518ac586/images%20(1).png)
+![image_alt](https://github.com/mbarka8moumen/moderne_traditionnel_Moroccan_clothes_EcommerceWebsite/blob/cc7e91924ef1702c15b0b4badec129e1d22fc275/images%20(2).png)
